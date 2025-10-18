@@ -1,7 +1,10 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import { WorkoutCalculator, WorkoutCalculatorRef } from "@/components/workout-calculator";
+import * as React from "react";
+import {
+  WorkoutCalculator,
+  WorkoutCalculatorRef,
+} from "@/components/workout-calculator";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ImageUpload } from "@/components/image-upload";
 import { WorkoutOCRResult } from "@/lib/workout-ocr";
@@ -35,7 +38,7 @@ export default function Home() {
         <div className="space-y-4">
           <div className="space-y-2">
             <h2 className="text-2xl font-bold tracking-tight">
-              운동 기록 입력
+              HYROX SIMULATION SCORE CARD
             </h2>
             <p className="text-muted-foreground">
               각 운동별 시간을 입력하면 자동으로 합계가 계산됩니다
