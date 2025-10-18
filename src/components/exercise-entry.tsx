@@ -13,15 +13,17 @@ interface ExerciseEntryProps {
   onChange: (entry: WorkoutEntry) => void;
   onRemove?: () => void;
   showRemove?: boolean;
+  customLabel?: string;
 }
 
 export function ExerciseEntry({
   entry,
   onChange,
   onRemove,
-  showRemove = false
+  showRemove = false,
+  customLabel
 }: ExerciseEntryProps) {
-  const label = EXERCISE_LABELS[entry.exercise];
+  const label = customLabel || EXERCISE_LABELS[entry.exercise];
 
   return (
     <Card>
@@ -56,13 +58,15 @@ interface ExerciseGroupProps {
   entries: WorkoutEntry[];
   onChange: (entries: WorkoutEntry[]) => void;
   allowMultiple?: boolean;
+  showNumbers?: boolean;
 }
 
 export function ExerciseGroup({
   exercise,
   entries,
   onChange,
-  allowMultiple = false
+  allowMultiple = false,
+  showNumbers = false
 }: ExerciseGroupProps) {
   const label = EXERCISE_LABELS[exercise];
 
@@ -85,13 +89,14 @@ export function ExerciseGroup({
 
   return (
     <div className="space-y-3">
-      {entries.map((entry) => (
+      {entries.map((entry, index) => (
         <ExerciseEntry
           key={entry.id}
           entry={entry}
           onChange={(updated) => handleChange(entry.id, updated)}
           onRemove={() => handleRemove(entry.id)}
           showRemove={allowMultiple && entries.length > 1}
+          customLabel={showNumbers ? `${label} ${index + 1}` : undefined}
         />
       ))}
 

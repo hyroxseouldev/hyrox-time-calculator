@@ -12,10 +12,14 @@ import { calculateWorkoutSummary } from '@/lib/workout-calculations';
 import { emptyTime, timeToSeconds } from '@/lib/time-utils';
 
 export function WorkoutCalculator() {
-  // Running entries (multiple rounds allowed)
-  const [runningEntries, setRunningEntries] = React.useState<WorkoutEntry[]>([
-    { id: 'running-1', exercise: 'running', time: emptyTime() }
-  ]);
+  // Running entries (8 static rounds)
+  const [runningEntries, setRunningEntries] = React.useState<WorkoutEntry[]>(
+    Array.from({ length: 8 }, (_, i) => ({
+      id: `running-${i + 1}`,
+      exercise: 'running' as const,
+      time: emptyTime()
+    }))
+  );
 
   // Station entries (one per station)
   const [stationEntries, setStationEntries] = React.useState<WorkoutEntry[]>(
@@ -55,15 +59,23 @@ export function WorkoutCalculator() {
         <TabsContent value="running" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">달리기 기록</CardTitle>
+              <CardTitle className="text-lg">달리기 기록 (8개)</CardTitle>
             </CardHeader>
-            <CardContent>
-              <ExerciseGroup
-                exercise="running"
-                entries={runningEntries}
-                onChange={setRunningEntries}
-                allowMultiple={true}
-              />
+            <CardContent className="space-y-4">
+              {runningEntries.map((entry, index) => (
+                <ExerciseGroup
+                  key={entry.id}
+                  exercise="running"
+                  entries={[entry]}
+                  onChange={(updated) => {
+                    setRunningEntries((prev) =>
+                      prev.map((e, i) => (i === index ? updated[0] : e))
+                    );
+                  }}
+                  allowMultiple={false}
+                  showNumbers={true}
+                />
+              ))}
             </CardContent>
           </Card>
         </TabsContent>
