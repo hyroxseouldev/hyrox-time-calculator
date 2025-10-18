@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background w-full flex flex-col items-center justify-center">
       {/* Header */}
-      <header className="w-full flex items-center justify-between px-4 container">
+      <header className="w-full flex items-center justify-between container max-w-screen-md">
         <div className="flex h-14 items-center justify-between px-4 w-full">
           <div className="flex items-center gap-2">
             <Dumbbell className="h-5 w-5 text-primary" />
@@ -53,7 +53,7 @@ export default function Home() {
       <footer className="w-full flex items-center justify-between px-4 container border-t">
         <div className="container px-4 py-3 w-full">
           <p className="text-center text-sm text-muted-foreground">
-            모바일에 최적화된 HYROX 운동 기록 계산기
+            Create by @kxxclear 그리고 @xon_training 과 함께 합니다.
           </p>
         </div>
       </footer>
