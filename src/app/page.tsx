@@ -36,21 +36,6 @@ export default function Home() {
             <h1 className="text-lg font-bold">Xtreame + ON</h1>
           </div>
           <div className="flex items-center gap-2">
-            <SignedIn>
-              <ImageUpload onDataExtracted={handleDataExtracted} />
-            </SignedIn>
-            <SignedOut>
-              <Button
-                variant="ghost"
-                disabled
-                className="h-9 w-auto"
-                title="운동 기록 사진 업로드"
-              >
-                <Camera className="h-4 w-4" />
-                이미지 업로드(OCR)
-              </Button>
-            </SignedOut>
-
             <ThemeToggle />
             <SignedIn>
               <UserButton />
@@ -77,6 +62,25 @@ export default function Home() {
             <p className="text-muted-foreground">
               각 운동별 시간을 입력하면 자동으로 합계가 계산됩니다
             </p>
+            <SignedIn>
+              <ImageUpload onDataExtracted={handleDataExtracted} />
+            </SignedIn>
+            <SignedOut>
+              <Button
+                variant="outline"
+                disabled
+                className="h-9 w-auto"
+                title="운동 기록 사진 업로드"
+              >
+                <Camera className="h-4 w-4" />
+                이미지 업로드(OCR)
+              </Button>
+              <p className="text-xs text-mute-foreground">
+                <span className="text-muted-foreground">
+                  로그인 후 이미지 업로드(OCR)가 가능합니다.
+                </span>
+              </p>
+            </SignedOut>
           </div>
 
           <WorkoutCalculator ref={calculatorRef} />

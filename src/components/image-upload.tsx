@@ -111,7 +111,7 @@ export function ImageUpload({ onDataExtracted }: ImageUploadProps) {
   return (
     <>
       <Button
-        variant="ghost"
+        variant="outline"
         onClick={() => setIsOpen(true)}
         className="h-9 w-auto"
         title="운동 기록 사진 업로드"
