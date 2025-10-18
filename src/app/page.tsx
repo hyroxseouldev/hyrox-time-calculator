@@ -1,8 +1,19 @@
-import { WorkoutCalculator } from "@/components/workout-calculator";
+'use client';
+
+import * as React from 'react';
+import { WorkoutCalculator, WorkoutCalculatorRef } from "@/components/workout-calculator";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { ImageUpload } from "@/components/image-upload";
+import { WorkoutOCRResult } from "@/lib/workout-ocr";
 import { Dumbbell } from "lucide-react";
 
 export default function Home() {
+  const calculatorRef = React.useRef<WorkoutCalculatorRef>(null);
+
+  const handleDataExtracted = (data: WorkoutOCRResult) => {
+    calculatorRef.current?.fillFromOCR(data);
+  };
+
   return (
     <div className="min-h-screen bg-background w-full flex flex-col items-center justify-center">
       {/* Header */}
@@ -12,7 +23,10 @@ export default function Home() {
             <Dumbbell className="h-5 w-5 text-primary" />
             <h1 className="text-lg font-bold">HYROX 기록 계산기</h1>
           </div>
-          <ThemeToggle />
+          <div className="flex items-center gap-2">
+            <ImageUpload onDataExtracted={handleDataExtracted} />
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
@@ -28,7 +42,7 @@ export default function Home() {
             </p>
           </div>
 
-          <WorkoutCalculator />
+          <WorkoutCalculator ref={calculatorRef} />
         </div>
       </main>
 

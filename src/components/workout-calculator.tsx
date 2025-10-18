@@ -10,8 +10,13 @@ import { WorkoutSummaryDisplay } from './workout-summary';
 import { WorkoutEntry, STATION_EXERCISES } from '@/types/workout';
 import { calculateWorkoutSummary } from '@/lib/workout-calculations';
 import { emptyTime, timeToSeconds } from '@/lib/time-utils';
+import { WorkoutOCRResult } from '@/lib/workout-ocr';
 
-export function WorkoutCalculator() {
+export interface WorkoutCalculatorRef {
+  fillFromOCR: (data: WorkoutOCRResult) => void;
+}
+
+export const WorkoutCalculator = React.forwardRef<WorkoutCalculatorRef>((props, ref) => {
   // Running entries (8 static rounds)
   const [runningEntries, setRunningEntries] = React.useState<WorkoutEntry[]>(
     Array.from({ length: 8 }, (_, i) => ({
@@ -39,6 +44,36 @@ export function WorkoutCalculator() {
     const roxzoneSeconds = timeToSeconds(roxzoneTime);
     return calculateWorkoutSummary(allEntries, roxzoneSeconds);
   }, [runningEntries, stationEntries, roxzoneTime]);
+
+  // Expose fillFromOCR method via ref
+  React.useImperativeHandle(ref, () => ({
+    fillFromOCR: (data: WorkoutOCRResult) => {
+      // Fill running entries
+      setRunningEntries(prev =>
+        prev.map((entry, index) => ({
+          ...entry,
+          time: data.running[index] || emptyTime()
+        }))
+      );
+
+      // Fill station entries
+      setStationEntries(prev =>
+        prev.map(entry => {
+          const exerciseKey = entry.exercise as keyof typeof data.stations;
+          return {
+            ...entry,
+            time: data.stations[exerciseKey] || emptyTime()
+          };
+        })
+      );
+
+      // Fill roxzone
+      if (data.roxzone) {
+        setRoxzoneTime(data.roxzone);
+      }
+    }
+  }));
+
 
   return (
     <div className="space-y-6">
@@ -130,4 +165,6 @@ export function WorkoutCalculator() {
       </Tabs>
     </div>
   );
-}
+});
+
+WorkoutCalculator.displayName = 'WorkoutCalculator';
