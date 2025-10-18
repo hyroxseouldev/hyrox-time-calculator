@@ -8,7 +8,7 @@ import {
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ImageUpload } from "@/components/image-upload";
 import { WorkoutOCRResult } from "@/lib/workout-ocr";
-import { Dumbbell } from "lucide-react";
+import { Camera, Dumbbell } from "lucide-react";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 
@@ -28,7 +28,20 @@ export default function Home() {
             <h1 className="text-lg font-bold">Xtreame + ON</h1>
           </div>
           <div className="flex items-center gap-2">
-            <ImageUpload onDataExtracted={handleDataExtracted} />
+            <SignedIn>
+              <ImageUpload onDataExtracted={handleDataExtracted} />
+            </SignedIn>
+            <SignedOut>
+              <Button
+                variant="ghost"
+                disabled
+                className="h-9 w-auto"
+                title="운동 기록 사진 업로드"
+              >
+                <Camera className="h-4 w-4" />
+                이미지 업로드(OCR)
+              </Button>
+            </SignedOut>
 
             <ThemeToggle />
             <SignedIn>
