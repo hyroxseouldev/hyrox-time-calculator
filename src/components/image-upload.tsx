@@ -205,7 +205,7 @@ export function ImageUpload({ onDataExtracted }: ImageUploadProps) {
               ref={fileInputRef}
               type="file"
               accept="image/*"
-              capture="environment"
+              // capture="environment"
               onChange={handleFileSelect}
               className="hidden"
             />
