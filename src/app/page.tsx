@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import {
   WorkoutCalculator,
   WorkoutCalculatorRef,
@@ -8,7 +9,7 @@ import {
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ImageUpload } from "@/components/image-upload";
 import { WorkoutOCRResult } from "@/lib/workout-ocr";
-import { Camera, Dumbbell } from "lucide-react";
+import { Camera } from "lucide-react";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 
@@ -24,7 +25,14 @@ export default function Home() {
       {/* Header */}
       <header className="w-full flex items-center justify-between container max-w-screen-md mx-auto">
         <div className="flex h-14 items-center justify-between px-4 w-full">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
+            <Image
+              src="/xon_logo.webp"
+              alt="XON Logo"
+              width={40}
+              height={40}
+              className="object-contain rounded-full"
+            />
             <h1 className="text-lg font-bold">Xtreame + ON</h1>
           </div>
           <div className="flex items-center gap-2">

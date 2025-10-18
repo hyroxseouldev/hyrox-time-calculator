@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -139,11 +140,14 @@ export function ImageUpload({ onDataExtracted }: ImageUploadProps) {
             >
               {preview ? (
                 <div className="space-y-4">
-                  <img
-                    src={preview}
-                    alt="미리보기"
-                    className="max-h-64 mx-auto rounded-lg"
-                  />
+                  <div className="relative w-full h-64">
+                    <Image
+                      src={preview}
+                      alt="미리보기"
+                      fill
+                      className="object-contain rounded-lg"
+                    />
+                  </div>
                   {!isProcessing && status.type === "idle" && (
                     <Button
                       variant="outline"
