@@ -150,21 +150,70 @@ export const WorkoutCalculator = React.forwardRef<WorkoutCalculatorRef>(
 
           {/* Roxzone Tab */}
           <TabsContent value="roxzone" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">록스존 시간</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <TimeInput
-                  label="전환 시간 (Roxzone)"
-                  value={roxzoneTime}
-                  onChange={setRoxzoneTime}
-                />
-                <p className="mt-3 text-sm text-muted-foreground">
-                  운동 간 전환 시간을 입력하세요
-                </p>
-              </CardContent>
-            </Card>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">록스존 시간</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <TimeInput
+                    label="전환 시간 (Roxzone)"
+                    value={roxzoneTime}
+                    onChange={setRoxzoneTime}
+                  />
+                  <p className="mt-3 text-sm text-muted-foreground">
+                    운동 간 전환 시간을 입력하세요
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">달리기 평균 속도</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex items-baseline justify-between">
+                      <span className="text-sm text-muted-foreground">
+                        평균 시간
+                      </span>
+                      <span className="text-2xl font-bold tabular-nums">
+                        {(() => {
+                          const totalRunning = runningEntries.reduce(
+                            (sum, entry) => sum + timeToSeconds(entry.time),
+                            0
+                          );
+                          const validCount = runningEntries.filter(
+                            (entry) => timeToSeconds(entry.time) > 0
+                          ).length;
+                          const avgSeconds =
+                            validCount > 0 ? totalRunning / validCount : 0;
+                          const mins = Math.floor(avgSeconds / 60);
+                          const secs = Math.floor(avgSeconds % 60);
+                          return `${mins}:${secs.toString().padStart(2, "0")}`;
+                        })()}
+                      </span>
+                    </div>
+                    <div className="flex items-baseline justify-between">
+                      <span className="text-sm text-muted-foreground">
+                        완료한 라운드
+                      </span>
+                      <span className="text-xl font-semibold">
+                        {
+                          runningEntries.filter(
+                            (entry) => timeToSeconds(entry.time) > 0
+                          ).length
+                        }{" "}
+                        / 8
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground pt-2">
+                      입력된 달리기 기록의 평균입니다
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
         </Tabs>
       </div>

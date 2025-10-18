@@ -27,6 +27,7 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-2">
             <ImageUpload onDataExtracted={handleDataExtracted} />
+
             <ThemeToggle />
           </div>
         </div>
