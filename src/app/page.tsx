@@ -18,13 +18,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background w-full flex flex-col items-center justify-center">
+    <div className="min-h-screen bg-background w-full flex flex-col">
       {/* Header */}
-      <header className="w-full flex items-center justify-between container max-w-screen-md">
+      <header className="w-full flex items-center justify-between container max-w-screen-md mx-auto">
         <div className="flex h-14 items-center justify-between px-4 w-full">
           <div className="flex items-center gap-2">
-            <Dumbbell className="h-5 w-5 text-primary" />
-            <h1 className="text-lg font-bold">HYROX 기록 계산기</h1>
+            <h1 className="text-lg font-bold">Xtreame + ON</h1>
           </div>
           <div className="flex items-center gap-2">
             <ImageUpload onDataExtracted={handleDataExtracted} />
@@ -34,7 +33,7 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="container max-w-screen-md px-4 py-6 pb-20">
+      <main className="flex-1 container max-w-screen-md mx-auto px-4 py-6 pb-20">
         <div className="space-y-4">
           <div className="space-y-2">
             <h2 className="text-2xl font-bold tracking-tight">
@@ -49,11 +48,29 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full flex items-center justify-between px-4 container border-t">
-        <div className="container px-4 py-3 w-full">
+      {/* Footer - Fixed at bottom */}
+      <footer className="w-full border-t bg-background fixed bottom-0 left-0 right-0">
+        <div className="container max-w-screen-md mx-auto px-4 py-3">
           <p className="text-center text-sm text-muted-foreground">
-            Create by @kxxclear 그리고 @xon_training 과 함께 합니다.
+            이 프로젝트는{" "}
+            <a
+              href="https://instagram.com/kxxclear"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-foreground transition-colors"
+            >
+              @kxxclear
+            </a>{" "}
+            그리고{" "}
+            <a
+              href="https://instagram.com/xon_training"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-foreground transition-colors"
+            >
+              @xon_training
+            </a>{" "}
+            과 함께 합니다.
           </p>
         </div>
       </footer>
