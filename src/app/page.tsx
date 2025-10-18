@@ -9,6 +9,8 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { ImageUpload } from "@/components/image-upload";
 import { WorkoutOCRResult } from "@/lib/workout-ocr";
 import { Dumbbell } from "lucide-react";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const calculatorRef = React.useRef<WorkoutCalculatorRef>(null);
@@ -29,6 +31,17 @@ export default function Home() {
             <ImageUpload onDataExtracted={handleDataExtracted} />
 
             <ThemeToggle />
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+
+            <SignedOut>
+              <SignInButton mode="modal" withSignUp={false}>
+                <Button variant="default">
+                  <span>로그인</span>
+                </Button>
+              </SignInButton>
+            </SignedOut>
           </div>
         </div>
       </header>
